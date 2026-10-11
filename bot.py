@@ -10,7 +10,7 @@ logging.basicConfig(
 )
 
 TELEGRAM_TOKEN = "8895763568:AAHwEwbEerZ4W11OCRApE3LX_eCsY784x8k"
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "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"
 
 client = Groq(api_key=GROQ_API_KEY)
 
@@ -35,7 +35,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "content": user_text,
                 }
             ],
-            model="llama-3.1-8b-instant",
+            model="llama-3.3-70b-versatile",
         )
         ai_response = chat_completion.choices[0].message.content
     except Exception as e:
