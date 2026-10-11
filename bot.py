@@ -35,7 +35,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "content": user_text,
                 }
             ],
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
         )
         ai_response = chat_completion.choices[0].message.content
     except Exception as e:
