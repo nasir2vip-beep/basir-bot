@@ -1,7 +1,7 @@
 import os
 import logging
 from telegram import Update
-from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler, filters
+from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler, CommandHandler, filters
 from groq import Groq
 
 logging.basicConfig(
@@ -14,6 +14,11 @@ GROQ_API_KEY = "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"
 
 client = Groq(api_key=GROQ_API_KEY)
 
+# هندلر دستور استارت
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("سلام! من هوش مصنوعی بصیر هستم. هر سوالی داری از من بپرس جگر!")
+
+# هندلر پیام‌های متنی
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_text = update.message.text
     chat_id = update.message.chat_id
@@ -42,7 +47,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
+    
+    # اضافه کردن دستور /start و پیام‌های متنی
+    application.add_handler(CommandHandler("start", start_command))
     application.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
+
     print("ربات تلگرام بصیر با موفقیت روشن شد و آماده پاسخگویی است...")
     application.run_polling()
     
